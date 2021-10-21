@@ -1,0 +1,133 @@
+max fitness genome:
+	genome: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1] - fitness: 129.6
+	total weight: 169.39999999999998
+	total utility: 129.6
+
+Items taken:
+	Utility: 7.3 Weight: 2.5
+	Utility: 6.0 Weight: 4.7
+	Utility: 8.6 Weight: 20.3
+	Utility: 4.5 Weight: 4.1
+	Utility: 5.9 Weight: 5.0
+	Utility: 8.7 Weight: 14.3
+	Utility: 9.3 Weight: 3.0
+	Utility: 1.7 Weight: 2.3
+	Utility: 8.3 Weight: 20.1
+	Utility: 9.1 Weight: 2.8
+	Utility: 8.9 Weight: 15.2
+	Utility: 0.6 Weight: 19.6
+	Utility: 10.0 Weight: 4.6
+	Utility: 10.0 Weight: 16.6
+	Utility: 5.0 Weight: 6.5
+	Utility: 9.3 Weight: 12.5
+	Utility: 6.8 Weight: 10.7
+	Utility: 9.6 Weight: 4.6
+	
+
+max fitness genome:
+	genome: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1] - fitness: 146.89999999999998
+	total weight: 251.19999999999996
+	total utility: 146.89999999999998
+
+Items taken:
+	Utility: 7.6 Weight: 20.2
+	Utility: 6.3 Weight: 7.2
+	Utility: 7.8 Weight: 18.9
+	Utility: 9.3 Weight: 11.3
+	Utility: 7.2 Weight: 8.1
+	Utility: 6.0 Weight: 20.4
+	Utility: 9.0 Weight: 18.5
+	Utility: 7.9 Weight: 7.7
+	Utility: 10.0 Weight: 4.6
+	Utility: 3.6 Weight: 13.2
+	Utility: 9.1 Weight: 2.8
+	Utility: 7.7 Weight: 7.7
+	Utility: 7.6 Weight: 15.2
+	Utility: 9.3 Weight: 13.0
+	Utility: 8.5 Weight: 15.1
+	Utility: 7.6 Weight: 18.7
+	Utility: 5.9 Weight: 18.2
+	Utility: 6.8 Weight: 14.9
+	Utility: 9.7 Weight: 15.5
+	
+
+max fitness genome:
+	genome: [1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1] - fitness: 138.70000000000002
+	total weight: 247.70000000000005
+	total utility: 138.70000000000002
+
+Items taken:
+	Utility: 2.4 Weight: 15.5
+	Utility: 8.2 Weight: 7.5
+	Utility: 8.3 Weight: 20.1
+	Utility: 7.4 Weight: 13.6
+	Utility: 7.3 Weight: 19.7
+	Utility: 8.4 Weight: 13.0
+	Utility: 9.5 Weight: 7.6
+	Utility: 3.8 Weight: 19.0
+	Utility: 3.0 Weight: 19.8
+	Utility: 9.3 Weight: 12.5
+	Utility: 9.7 Weight: 15.5
+	Utility: 8.3 Weight: 8.5
+	Utility: 3.4 Weight: 0.9
+	Utility: 7.5 Weight: 17.4
+	Utility: 10.0 Weight: 7.3
+	Utility: 9.7 Weight: 18.3
+	Utility: 6.5 Weight: 4.2
+	Utility: 8.2 Weight: 11.9
+	Utility: 7.8 Weight: 15.4
+	
+
+max fitness genome:
+	genome: [1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1] - fitness: 120.00000000000001
+	total weight: 192.2
+	total utility: 120.00000000000001
+
+Items taken:
+	Utility: 6.8 Weight: 20.0
+	Utility: 7.8 Weight: 18.9
+	Utility: 6.9 Weight: 20.5
+	Utility: 1.8 Weight: 7.4
+	Utility: 5.4 Weight: 17.4
+	Utility: 6.8 Weight: 14.9
+	Utility: 9.1 Weight: 7.2
+	Utility: 3.0 Weight: 4.6
+	Utility: 7.2 Weight: 6.2
+	Utility: 9.4 Weight: 7.6
+	Utility: 3.4 Weight: 0.9
+	Utility: 5.7 Weight: 19.6
+	Utility: 9.4 Weight: 8.7
+	Utility: 9.5 Weight: 2.9
+	Utility: 4.2 Weight: 12.9
+	Utility: 10.0 Weight: 16.6
+	Utility: 7.8 Weight: 5.3
+	Utility: 5.8 Weight: 0.6
+	
+
+max fitness genome:
+	genome: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1] - fitness: 118.2
+	total weight: 242.4
+	total utility: 118.2
+
+Items taken:
+	Utility: 9.6 Weight: 15.0
+	Utility: 6.6 Weight: 13.6
+	Utility: 8.9 Weight: 4.3
+	Utility: 2.5 Weight: 15.0
+	Utility: 5.9 Weight: 13.2
+	Utility: 9.6 Weight: 11.8
+	Utility: 6.3 Weight: 9.2
+	Utility: 7.9 Weight: 17.4
+	Utility: 4.1 Weight: 12.0
+	Utility: 2.5 Weight: 13.6
+	Utility: 9.7 Weight: 16.3
+	Utility: 3.8 Weight: 17.4
+	Utility: 6.4 Weight: 14.9
+	Utility: 7.7 Weight: 11.4
+	Utility: 5.3 Weight: 14.2
+	Utility: 4.2 Weight: 12.9
+	Utility: 7.4 Weight: 10.9
+	Utility: 4.7 Weight: 10.7
+	Utility: 5.1 Weight: 8.6
+	
+
