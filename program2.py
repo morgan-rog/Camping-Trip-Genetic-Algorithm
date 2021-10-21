@@ -1,17 +1,7 @@
-# given input text file containing 400 sets of (utility, weight) pairs
-# utility: float ranged 0-10. 0 or 1 is something we could do without, 9-10 is vital
-# task is to use genetic algorithm to find good selection of items to pack while staying within weight guidelines (< 500 lbs)
-
-# use initial population of 1000 random selections
-# use mutation rate of 0.0001 -> each item in each selection has, independently, a 1/10,000 chance of being changed during mutation step
-# use L2 normalization to convert fitness scores to probability distribution
-# assign fitness score of 1 when it exceeds 500 lb limit
-# record average fitness for each generation and save to an output file. Continue iterating until average fitness improves less than 1% across 10 generations
-# report highest fitness selection found: items taken and what total utility is -> put this in a text file
-
-# prepare short report (1 or 2 pages) describing program -> data structures used and why, any places able to parallelize or optimize program, overview of what running the program was like
-# (overall efficiency, how many generations needed, etc.)
 from random import *
+from sklearn.preprocessing import Normalizer
+import numpy as np
+import time
 
 class Thing:
     def __init__(self, utility, weight):
@@ -20,6 +10,7 @@ class Thing:
 
     def __str__(self):
         return f'Utility: {self.utility} Weight: {self.weight}'
+
 
 class Genome:
     def __init__(self, binary_string):
@@ -61,8 +52,20 @@ def fitness(genome, my_things, weight_limit):
     return value
 
 
-def selection_pair(population):
-    a_genome, b_genome = choices(population, weights=[genome.fitness_value for genome in population], k=2)
+def L2(population):
+    fitness_list = []
+
+    for g in population:
+        fitness_list.append(g.fitness_value)
+
+    fitness_array = np.array(fitness_list)
+    fitness_norm = np.linalg.norm(fitness_array)
+    fitness_normalized = fitness_array / fitness_norm
+    return fitness_normalized
+
+
+def selection_pair(population, L2_norm):
+    a_genome, b_genome = choices(population, weights=L2_norm, k=2)
     return a_genome, b_genome
 
 
@@ -100,8 +103,6 @@ def calculate_average_fitness(population):
     total_fitness = 0
     for genome in population:
         total_fitness += genome.fitness_value
-    print(f'total fitness: {total_fitness}')
-    print(f'population size: {len(population)}')
     avg_fitness = total_fitness / len(population)
     return avg_fitness
 
@@ -132,48 +133,95 @@ def choose_random_things(num, the_things):
     return random_things
 
 
+def record_avg_fitness(avg_fitness):
+    with open('average_fitness.txt', 'a') as outfile:
+        outfile.write(str(avg_fitness))
+        outfile.write('\n')
+
 # MAIN
 weight_limit = 500
-genome_and_things_size = 5 # size of genome (bits) and amount of items
-population_size = 1000
-number_of_generations = 100
+genome_and_things_size = 20 # size of genome (bits) and amount of items
+population_size = 500
+population_size_list = [500, 1000, 1500, 2000, 2500]
+number_of_generations = 1000
+iteration = 50
+fitness_goal = genome_and_things_size * 10
 all_things = get_things_from_file('Program2Input.txt')
 
-my_things = choose_random_things(genome_and_things_size, all_things)
-population = generate_population(population_size, genome_and_things_size)
-max_fitness = 0
+print(f'the fitness goal: {fitness_goal}\n') # genome size * max utility
 
-# calculate fitness for each genome in the population
-for g in population:
-    g.set_fitness(fitness(g, my_things, weight_limit))
+for pop_size in population_size_list:
+    my_things = choose_random_things(genome_and_things_size, all_things)
+    population = generate_population(pop_size, genome_and_things_size)
+    max_fitness = 0
 
+    start_time = time.time() 
 
-for i in range(number_of_generations):
-    # sort population based on fitness function for each genome
-    population = sorted(population, key=lambda genome: genome.fitness_value, reverse=True)
+    # calculate fitness for each genome in the population
+    for g in population:
+        g.set_fitness(fitness(g, my_things, weight_limit))
 
-    generation_max_fitness = population[0].fitness_value
-    if generation_max_fitness > max_fitness:
-        max_fitness = generation_max_fitness
+    total_gen_count = 1
+    gen_count_iteration = 1
+    last_iter_avg_fitness = calculate_average_fitness(population)
+    # output average fitness to average_fitness.txt
+    record_avg_fitness(last_iter_avg_fitness)
 
-    # next generation starts with two genomes from population that have the highest fitness scores
-    next_generation = population[0:2]
+    for i in range(number_of_generations - 1):
+        # sort population based on fitness function for each genome
+        population = sorted(population, key=lambda genome: genome.fitness_value, reverse=True)
 
-    # create offspring and add it to next generation
-    for j in range(int(len(population) / 2) - 1):
-        parents = selection_pair(population)
-        offspring_a, offspring_b = single_point_crossover(parents[0], parents[1])
-        offspring_a = mutation(offspring_a)
-        offspring_a.set_fitness(fitness(offspring_a, my_things, weight_limit))
-        offspring_b = mutation(offspring_b)
-        offspring_b.set_fitness(fitness(offspring_b, my_things, weight_limit))
-        next_generation += [offspring_a, offspring_b]
+        generation_max_fitness = population[0].fitness_value
+        if generation_max_fitness > max_fitness:
+            max_fitness = generation_max_fitness
 
+        # next generation starts with two genomes from population that have the highest fitness scores
+        next_generation = population[0:2]
 
-    population = next_generation
+        # use L2 normalization to convert fitness scores to probablility distribution
+        L2_normalized = L2(population)
+        l = np.linalg.norm(L2_normalized)
 
-print(f'max fitness after {number_of_generations} generations: {max_fitness}')
-print(f'average fitness: {calculate_average_fitness(population)}')
+        # create offspring and add it to next generation
+        for j in range(int(len(population) / 2) - 1):
+            parents = selection_pair(population, L2_normalized)
+            offspring_a, offspring_b = single_point_crossover(parents[0], parents[1])
+            offspring_a = mutation(offspring_a)
+            offspring_a.set_fitness(fitness(offspring_a, my_things, weight_limit))
+            offspring_b = mutation(offspring_b)
+            offspring_b.set_fitness(fitness(offspring_b, my_things, weight_limit))
+            next_generation += [offspring_a, offspring_b]
+
+        population = next_generation
+
+        if gen_count_iteration == iteration:
+            gen_count_iteration = 0
+            one_percent_last_avg = last_iter_avg_fitness * .01
+            new_avg_fitness = calculate_average_fitness(population)
+            if (abs(new_avg_fitness - last_iter_avg_fitness)) < one_percent_last_avg:
+                break
+            else:
+                avg_fitness = new_avg_fitness
+                # record new last iteration average fitness for next iteration
+                last_iter_avg_fitness = new_avg_fitness
+        else:
+            avg_fitness = calculate_average_fitness(population)
+
+        # output average fitness to average_fitness.txt
+        record_avg_fitness(avg_fitness)
+
+        total_gen_count += 1
+        gen_count_iteration += 1
+    
+
+    end_time = time.time()
+    total_time = round(end_time - start_time, 2)
+
+    print(f'Starting population: {pop_size}')
+    print(f'Max fitness after {total_gen_count} generations: {round(max_fitness, 2)}')
+    print(f'Average fitness: {round(calculate_average_fitness(population), 2)}')
+    print(f'time: {total_time}s')
+    print()
     
 
 
