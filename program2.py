@@ -1,5 +1,4 @@
 from random import *
-from sklearn.preprocessing import Normalizer
 import numpy as np
 import time
 import copy
