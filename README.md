@@ -1,4 +1,4 @@
-# camping_trip_genetic_algorithm
+# Camping-Trip-Genetic-Algorithm
 ```
 This program uses a genetic algorithm to find a good selection of items to pack
 while staying within the weight guidelines, which is less than 500 pounds. 
